@@ -42,7 +42,8 @@ body {
   width: 100%;
 }
 
-#main-nav ul li {
+#main-nav ul li a{
+  text-decoration: none;
   color: #fff;
   text-align: center;
   flex: 1 1 auto;

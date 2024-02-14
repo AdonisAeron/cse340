@@ -18,3 +18,4 @@ node_modules
 # README is not necessary for the project but does include some helpful tips to getting it started locally
 # As such, there is no need to continue to commit it to the project
 README.md
+.vscode/launch.json
