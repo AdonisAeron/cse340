@@ -64,30 +64,34 @@ Util.buildClassificationGrid = async function(data){
   Util.buildInventoryGrid = async function(data){
       let grid
       if(data.length > 0){
+        let detail = data[0]
         grid = '<ul id="detail-display">'
-        data.forEach(detail => { 
-          grid += '<li>'
-          grid +=  '<h1>' + detail.inv_model + ' ' + detail.inv_make + '</h1><img src="/' 
-          + detail.inv_image 
-          +'" alt="Image of '+ detail.inv_make + ' ' + detail.inv_model 
-          +' on CSE Motors" /></a>'
-          grid += '<div class="namePrice">'
-          grid += '<span>$' 
-          + new Intl.NumberFormat('en-US').format(detail.inv_price) + '</span>'
-          grid += '<ul>'
-          grid += '<li>Mileage: <p>' + detail.inv_miles + '</p></li>'
-          grid += '<li>Color: <p>' + detail.inv_color + '</p></li>'
-          grid += '<li>Year: <p>' + detail.inv_year + '</p></li>'
-          grid += '<li>Description: <p>' + detail.inv_description + '</p></li>'
-          grid += '</ul>'
-          grid += '</div>'
-          grid += '</li>'
-        })
+        grid += '<li>'
+        grid +=  '<img src="/' + detail.inv_image +'" alt="Image of '+ detail.inv_make + ' ' 
+        + detail.inv_model 
+        +' on CSE Motors" /></a>'
+        grid += '<div class="namePrice">'
+        grid += '<h2>$' + new Intl.NumberFormat('en-US').format(detail.inv_price) + '</h2>'
+        grid += '<ul>'
+        grid += '<li>Mileage: <p>' + detail.inv_miles + '</p></li>'
+        grid += '<li>Color: <p>' + detail.inv_color + '</p></li>'
+        grid += '<li>Year: <p>' + detail.inv_year + '</p></li>'
+        grid += '<li>Description: <p>' + detail.inv_description + '</p></li>'
+        grid += '</ul>'
+        grid += '</div>'
+        grid += '</li>'
         grid += '</ul>'
       } else { 
         grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
       }
       return grid
     }
+
+/* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for 
+ * General Error Handling
+ **************************************** */
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
 module.exports = Util

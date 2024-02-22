@@ -26,7 +26,7 @@ async function getInventoryByClassificationId(classification_id) {
   }
 
 /* ***************************
- *  Get all inventory items by inv_id getInventoryById
+ *  Get all inventory items by inv_id 
  * ************************** */
 async function getInventoryById(inv_id) {
   try {
