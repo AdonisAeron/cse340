@@ -13,6 +13,8 @@ const utilities = require("./utilities/")
 const static = require("./routes/static")
 const inventoryRoute = require("./routes/inventoryRoute")
 const baseController = require("./controllers/baseController")
+const invController = require("./controllers/invController")
+const errorController = require("./controllers/errorController")
 
 /* ***********************
  * View Engine and Templates
@@ -29,6 +31,8 @@ app.use(static)
 app.get("/", utilities.handleErrors(baseController.buildHome))
 // Inventory Routes
 app.use("/inv", utilities.handleErrors(inventoryRoute))
+// 500 Error
+app.get('/Chewbaka', errorController.triggerError)
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {

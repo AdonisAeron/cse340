@@ -238,7 +238,7 @@ main {
 #inv-display li a {
   flex: 0 0 100%;
   display: flex;
-  width: 50%;
+  width: 33%;
 }
 
 #inv-display li img {
@@ -292,7 +292,6 @@ main {
 
 #detail-display .namePrice ul li{
   display: flex;
-  align-items: top;
   flex-direction: row;
   margin: 10px 5px;
 }
@@ -301,6 +300,13 @@ main {
   font-weight: 100;
   margin: 0;
   margin-left: 1%;
+}
+
+.error-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
 @media only screen and (max-width: 800px) {

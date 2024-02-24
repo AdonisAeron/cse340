@@ -69,7 +69,7 @@ Util.buildClassificationGrid = async function(data){
         grid += '<li>'
         grid +=  '<img src="/' + detail.inv_image +'" alt="Image of '+ detail.inv_make + ' ' 
         + detail.inv_model 
-        +' on CSE Motors" /></a>'
+        +' on CSE Motors">'
         grid += '<div class="namePrice">'
         grid += '<h2>$' + new Intl.NumberFormat('en-US').format(detail.inv_price) + '</h2>'
         grid += '<ul>'

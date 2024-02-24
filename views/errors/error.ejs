@@ -7,3 +7,9 @@
 
 <%# The message block commented out for now as usage is not garunteed %>
 <%- message %>
+
+<% if (title == '404') { %>
+    <img src="/images/site/404-Error.webp" class="error-image" alt="A cartoon image of a detective seeing a 404 on the webpage">
+<% } else { %>
+    <img src="/images/site/500-Error.webp" class="error-image" alt="A cartoon image of a chef robot looking at a burning server displaying '500 ERROR!'">
+<% } %>
