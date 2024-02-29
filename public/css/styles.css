@@ -309,6 +309,40 @@ main {
   margin: 0 auto;
 }
 
+.forum-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#login-forum, #register-forum {
+  background-color: #32475c;
+  color: white;
+  padding: 20px;
+  width: 50%;
+  height: 100%;
+  flex: 1;
+  align-self: center;
+}
+
+#login-forum, #register-forum label, input{
+  margin: 10px;
+}
+
+#login-forum span a{
+  color: white;
+}
+
+input:required:invalid, input:focus:invalid {
+  /* insert your own styles for invalid form input */
+  box-shadow: 10px 0px 5px red;
+}
+
+input:required:valid {
+  /* insert your own styles for valid form input */
+  box-shadow: 10px 0px 5px green;
+}
+
 @media only screen and (max-width: 800px) {
 
   body {
