@@ -91,7 +91,6 @@ Util.buildInventoryGrid = async function(data){
  * Constructs the add-inventory select statement
  ************************** */
 Util.getOptions = async function (classification_id = null) {
-  console.log("Util classification_id: " + classification_id)
   let data = await invModel.getClassifications()
   console.log(data)
   let list = '<select id="classification_id" name="classification_id">'
