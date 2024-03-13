@@ -17,6 +17,7 @@ const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
 const invController = require("./controllers/invController")
 const errorController = require("./controllers/errorController")
+const cookieParser = require("cookie-parser")
 
 /* ***********************
  * Middleware
@@ -41,6 +42,10 @@ app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
   next()
 })
+
+app.use(cookieParser())
+
+app.use(utilities.checkJWTToken)
 
 /* ***********************
  * View Engine and Templates
