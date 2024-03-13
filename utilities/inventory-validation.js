@@ -62,7 +62,6 @@ validate.addInvRules = () => {
       // inv_year is required and must be number
       body("inv_year")
         .trim()
-        .isNumeric()
         .isLength({ min: 4})
         .withMessage("Please provide a vehicle year that is valid."), // on error this message is sent.
   
@@ -76,14 +75,12 @@ validate.addInvRules = () => {
       body("inv_price")
         .trim()
         .isLength({ min: 1 })
-        .isNumeric()
         .withMessage("Please provide the vehicles price."), // on error this message is sent.
   
       // inv_color is required and must be number
       body("inv_miles")
         .trim()
         .isLength({ min: 1 })
-        .isNumeric()
         .withMessage("Please provide the vehicles miles."), // on error this message is sent.
   
       // inv_color is required and must be string
@@ -110,7 +107,7 @@ validate.addInvRules = () => {
  * ***************************** */
 validate.checkInvData = async (req, res, next) => {
     const { inv_make, inv_model, inv_year, inv_description, inv_price, inv_miles, inv_color, classification_id } = req.body
-    const options = await utilities.getOptions()
+    const options = await utilities.getOptions(classification_id)
     let errors = []
     errors = validationResult(req)
     if (!errors.isEmpty()) {

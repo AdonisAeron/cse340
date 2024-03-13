@@ -90,16 +90,25 @@ Util.buildInventoryGrid = async function(data){
 /* ************************
  * Constructs the add-inventory select statement
  ************************** */
-Util.getOptions = async function (req, res, next) {
+Util.getOptions = async function (classification_id = null) {
+  console.log("Util classification_id: " + classification_id)
   let data = await invModel.getClassifications()
   console.log(data)
-  let list = '<select id="classification_id" name="classification_id" required>'
+  let list = '<select id="classification_id" name="classification_id">'
   data.rows.forEach((row) => {
-      list += '<option value="' + row.classification_id + '">' + row.classification_name + '</option>'
-  })
-  list += "</select><br>"
-  return list
-}
+    list += '<option value="' + row.classification_id + '"';
+    if (
+    classification_id != null &&
+    row.classification_id == classification_id
+    ) {
+    list += " selected ";
+    }
+    list += ">" + row.classification_name + "</option>";
+    });
+    list += "</select>";
+    return list;
+};    
+
 
 /* ****************************************
  * Middleware For Handling Errors  
