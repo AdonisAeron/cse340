@@ -53,4 +53,92 @@ invCont.buildByInventoryId = async function (req, res, next) {
   })
 }
 
+/* ***************************
+ *  Build pages Management view
+ * ************************** */
+invCont.buildManagement = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("./inventory/management", {
+      title: "Management",
+      nav,
+      errors: null,
+  })
+}
+
+invCont.buildAddClassification = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("./inventory/add-classification", {
+      title: "Classification Mangement",
+      nav,
+      errors: null,
+  })
+}
+
+invCont.buildAddInventory = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  const options = await utilities.getOptions()
+  res.render("./inventory/add-inventory", {
+      title: "Inventory Management",
+      nav,
+      options,
+      errors: null,
+  })
+}
+
+invCont.addClassification = async function (req, res) {
+  let nav = await utilities.getNav()
+  const { classification_name } = req.body
+
+  const addClassResult = await invModel.addClassification(classification_name)
+
+  if (addClassResult) {
+    req.flash(
+      "notice",
+      `Congratulations, you\'re added ${classification_name} to the database!`
+    )
+    let nav = await utilities.getNav()
+    res.status(201).render("./inventory/management", {
+      title: "Management",
+      nav,
+      errors: null,
+    })
+  } else {
+    req.flash("notice", "Sorry, the addition failed.")
+    res.status(501).render("./inventory/add-classification", {
+      title: "Classification Mangement",
+      nav,
+      errors: null,
+    })
+  }
+}
+
+invCont.addInventory = async function (req, res) {
+  let nav = await utilities.getNav()
+  const options = await utilities.getOptions()
+  const { inv_make, inv_model, inv_year, inv_description, inv_price, inv_miles, inv_color, classification_id } = req.body
+
+  const addClassResult = await invModel.addItem( inv_make, inv_model, inv_year, inv_description, inv_price, inv_miles, inv_color, classification_id )
+
+  if (addClassResult) {
+    req.flash(
+      "notice",
+      `Congratulations, you\'re added ${inv_make + ' ' + inv_model} to the database!`
+    )
+    let nav = await utilities.getNav()
+    res.status(201).render("./inventory/management", {
+      title: "Management",
+      nav,
+      errors: null,
+    })
+  } else {
+    req.flash("notice", "Sorry, the addition failed.")
+    res.status(501).render("./inventory/add-inventory", {
+      title: "Inventory Mangement",
+      nav,
+      options,
+      errors: null,
+    })
+  }
+}
+
 module.exports = invCont

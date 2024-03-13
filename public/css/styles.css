@@ -315,7 +315,7 @@ main {
   justify-content: center;
 }
 
-#login-forum, #register-forum {
+#forum {
   background-color: #32475c;
   color: white;
   padding: 20px;
@@ -325,11 +325,11 @@ main {
   align-self: center;
 }
 
-#login-forum, #register-forum label, input{
+#forum label, input{
   margin: 10px;
 }
 
-#login-forum span a{
+#forum span a{
   color: white;
 }
 

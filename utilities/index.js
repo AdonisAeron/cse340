@@ -58,37 +58,51 @@ Util.buildClassificationGrid = async function(data){
     return grid
   }
 
-  /* **************************************
-  * Build the inventory view HTML
-  * ************************************ */
-  Util.buildInventoryGrid = async function(data){
-      let grid
-      if(data.length > 0){
-        let detail = data[0]
-        grid = '<ul id="detail-display">'
-        grid += '<li>'
-        grid +=  '<img src="/' + detail.inv_image +'" alt="Image of '+ detail.inv_make + ' ' 
-        + detail.inv_model 
-        +' on CSE Motors">'
-        grid += '<div class="namePrice">'
-        grid += '<h2>$' + new Intl.NumberFormat('en-US').format(detail.inv_price) + '</h2>'
-        grid += '<ul>'
-        grid += '<li>Mileage: <p>' + detail.inv_miles + '</p></li>'
-        grid += '<li>Color: <p>' + detail.inv_color + '</p></li>'
-        grid += '<li>Year: <p>' + detail.inv_year + '</p></li>'
-        grid += '<li>Description: <p>' + detail.inv_description + '</p></li>'
-        grid += '</ul>'
-        grid += '</div>'
-        grid += '</li>'
-        grid += '</ul>'
-      } else { 
-        grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
-      }
-      return grid
+/* **************************************
+* Build the inventory view HTML
+* ************************************ */
+Util.buildInventoryGrid = async function(data){
+    let grid
+    if(data.length > 0){
+      let detail = data[0]
+      grid = '<ul id="detail-display">'
+      grid += '<li>'
+      grid +=  '<img src="/' + detail.inv_image +'" alt="Image of '+ detail.inv_make + ' ' 
+      + detail.inv_model 
+      +' on CSE Motors">'
+      grid += '<div class="namePrice">'
+      grid += '<h2>$' + new Intl.NumberFormat('en-US').format(detail.inv_price) + '</h2>'
+      grid += '<ul>'
+      grid += '<li>Mileage: <p>' + detail.inv_miles + '</p></li>'
+      grid += '<li>Color: <p>' + detail.inv_color + '</p></li>'
+      grid += '<li>Year: <p>' + detail.inv_year + '</p></li>'
+      grid += '<li>Description: <p>' + detail.inv_description + '</p></li>'
+      grid += '</ul>'
+      grid += '</div>'
+      grid += '</li>'
+      grid += '</ul>'
+    } else { 
+      grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
     }
+  return grid
+}
+
+/* ************************
+ * Constructs the add-inventory select statement
+ ************************** */
+Util.getOptions = async function (req, res, next) {
+  let data = await invModel.getClassifications()
+  console.log(data)
+  let list = '<select id="classification_id" name="classification_id" required>'
+  data.rows.forEach((row) => {
+      list += '<option value="' + row.classification_id + '">' + row.classification_name + '</option>'
+  })
+  list += "</select><br>"
+  return list
+}
 
 /* ****************************************
- * Middleware For Handling Errors
+ * Middleware For Handling Errors  
  * Wrap other function in this for 
  * General Error Handling
  **************************************** */

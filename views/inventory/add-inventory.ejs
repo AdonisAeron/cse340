@@ -1,0 +1,41 @@
+<%# The content heading defining title and h1 %>
+<% if (title) { %>
+<h1><%- title %></h1>
+<% } else {
+    res.redirect('/')
+} %>
+    
+<%# The message block commented out for now as usage is not garunteed %>
+<%- messages() %>
+
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { %>
+            <li><%= error.msg %></li>
+        <%  }) %>
+    </ul>
+<% } %>
+    
+<%# The inventory item display makes use of grid to display items by price %>
+<div class="forum-container" action="/inv/add-inventory" method="post">
+    <form id="forum" method="POST">
+    <label for="inv_make">Vehicle Make</label><br>
+    <input type="text" id="inv_make" name="inv_make" required value="<%= locals.inv_make %>"><br>
+    <label for="inv_model">Vehicle Model</label><br>
+    <input type="text" id="inv_model" name="inv_model" required value="<%= locals.inv_model %>"><br>
+    <label for="inv_year">Vehicle Year</label><br>
+    <input type="text" id="inv_year" name="inv_year" required value="<%= locals.inv_year %>"><br>
+    <label for="inv_description">Vehicle Description</label><br>
+    <input type="text" id="inv_description" name="inv_description" required value="<%= locals.inv_description %>"><br>
+    <label for="inv_price">Vehicle Price</label><br>
+    <input type="text" id="inv_price" name="inv_price" required value="<%= locals.inv_price %>"><br>
+    <label for="inv_miles">Vehicle Miles</label><br>
+    <input type="text" id="inv_miles" name="inv_miles" required value="<%= locals.inv_miles %>"><br>
+    <label for="inv_color">Vehicle Color</label><br>
+    <input type="text" id="inv_color" name="inv_color" required value="<%= locals.inv_color %>"><br>
+    <label for="classification_id">Classification Type</label>
+    <%- options %>
+    <input type="submit" id="login-button" value="Register">
+    </form>
+</div>
+

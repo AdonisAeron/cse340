@@ -1,0 +1,17 @@
+<%# The content heading defining title and h1 %>
+<% if (title) { %>
+<h1><%- title %></h1>
+<% } else {
+    res.redirect('/')
+} %>
+    
+<%# The message block commented out for now as usage is not garunteed %>
+<%- messages() %>
+    
+<%# The inventory item display makes use of grid to display items by price %>
+
+<ul id="management-links">
+    <li><a href="./add-classification" title="Classification Management"> Add New Classification </a></li>
+    <li><a href="./add-inventory" title="Inventory Management"> Add New Vehicle </a></li>
+</ul>
+        
