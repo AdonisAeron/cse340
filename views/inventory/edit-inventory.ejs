@@ -16,9 +16,9 @@
     </ul>
 <% } %>
     
-<%# The inventory item display makes use of grid to display items by price %>
+<%# The inventory item display for editing item information %>
 <div class="forum-container">
-    <form id="forum" action="/inv/add-inventory" method="POST">
+    <form id="forum" class="updateForm" action="/inv/update" method="POST">
     <label for="inv_make">Vehicle Make</label><br>
     <input type="text" id="inv_make" name="inv_make" required value="<%= locals.inv_make %>"><br>
     <label for="inv_model">Vehicle Model</label><br>
@@ -39,7 +39,14 @@
     <input type="text" id="inv_color" name="inv_color" required value="<%= locals.inv_color %>"><br>
     <label for="classification_id">Classification Type</label>
     <%- options %>
-    <input type="submit" id="login-button" value="Register">
+    <input type="submit" name="login-button" value="Update Vehicle" disabled>
+    <input type="hidden" name="inv_id"
+    <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+    <% } %>>
     </form>
 </div>
 
+<table id="inventoryDisplay"></table>
+<noscript>JavaScript must be enabled to use this page.</noscript>
+
+<script src="../../js/inv-update.js"></script>

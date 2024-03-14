@@ -43,7 +43,7 @@ validate.checkClassData = async (req, res, next) => {
 }
 
 /*  **********************************
- *  Add-Classification Data Validation Rules
+ *  Add-Inventory Data Validation Rules
  * ********************************* */
 validate.addInvRules = () => {
     return [
@@ -129,6 +129,36 @@ validate.checkInvData = async (req, res, next) => {
       return
     }
     next()
+}
+
+/* ******************************
+ * Check data and return errors or continue to update
+ * ***************************** */
+validate.checkUpdateData = async (req, res, next) => {
+  const { itemName, inv_id, inv_make, inv_model, inv_year, inv_description, inv_price, inv_miles, inv_color, classification_id } = req.body
+  const options = await utilities.getOptions(classification_id)
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("./inventory/edit-inventory", {
+      errors,
+      title: "Edit " + itemName,
+      nav,
+      options,
+      inv_id,
+      inv_make, 
+      inv_model, 
+      inv_year, 
+      inv_description, 
+      inv_price, 
+      inv_miles, 
+      inv_color, 
+      classification_id
+    })
+    return
+  }
+  next()
 }
 
 
