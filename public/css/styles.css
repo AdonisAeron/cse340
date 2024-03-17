@@ -325,7 +325,7 @@ main {
   align-self: center;
 }
 
-#forum label, input{
+#forum label, input, textarea{
   margin: 10px;
 }
 
@@ -333,14 +333,18 @@ main {
   color: white;
 }
 
-input:required:invalid, input:focus:invalid {
+input:required:invalid, input:focus:invalid, textarea:required:invalid, textarea:focus:invalid {
   /* insert your own styles for invalid form input */
   box-shadow: 10px 0px 5px red;
 }
 
-input:required:valid {
+input:required:valid, textarea:required:valid {
   /* insert your own styles for valid form input */
   box-shadow: 10px 0px 5px green;
+}
+
+textarea {
+  max-width: 96%;
 }
 
 #inventoryDisplay, td {
