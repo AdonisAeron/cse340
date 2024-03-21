@@ -1,0 +1,35 @@
+<%# The content heading defining title and h1 %>
+<% if (title) { %>
+<h1><%- title %></h1>
+<% } else {
+    res.redirect('/')
+} %>
+    
+<%# The message block commented out for now as usage is not garunteed %>
+<%- messages() %>
+
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { %>
+            <li><%= error.msg %></li>
+        <%  }) %>
+    </ul>
+<% } %>
+    
+<%# The inventory item display for editing item information %>
+<div class="forum-container">
+    <form id="forum" class="deleteForm" action="/inv/delete" method="POST">
+    <label for="inv_make">Vehicle Make</label><br>
+    <input type="text" id="inv_make" name="inv_make" required readonly value="<%= locals.inv_make %>"><br>
+    <label for="inv_model">Vehicle Model</label><br>
+    <input type="text" id="inv_model" name="inv_model" required readonly value="<%= locals.inv_model %>"><br>
+    <label for="inv_year">Vehicle Year</label><br>
+    <input type="text" id="inv_year" name="inv_year" required readonly value="<%= locals.inv_year %>"><br>
+    <label for="inv_price">Vehicle Price</label><br>
+    <input type="text" id="inv_price" name="inv_price" required readonly value="<%= locals.inv_price %>"><br>
+    <input type="submit" name="login-button" value="Delete Vehicle">
+    <input type="hidden" name="inv_id"
+    <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+    <% } %>>
+    </form>
+</div>

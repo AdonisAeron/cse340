@@ -130,6 +130,7 @@ invCont.addInventory = async function (req, res) {
     res.status(201).render("./inventory/management", {
       title: "Management",
       nav,
+      options,
       errors: null,
     })
   } else {
@@ -181,6 +182,26 @@ invCont.buildEditByInventoryId = async function (req, res, next) {
     inv_miles: itemData[0].inv_miles,
     inv_color: itemData[0].inv_color,
     classification_id: itemData[0].classification_id
+  })
+}
+
+/* ***************************
+ *  Return Inventory by Classification to delete inventory items
+ * ************************** */
+invCont.buildDeleteByInventoryId = async function (req, res, next) {
+  const inv_id = parseInt(req.params.inventoryId)
+  let nav = await utilities.getNav()
+  const itemData = await invModel.getInventoryById(inv_id)
+  const itemName = `${itemData[0].inv_make} ${itemData[0].inv_model}`
+  res.render("./inventory/delete-confirm", {
+    title: "Delete " + itemName,
+    nav,
+    errors: null,
+    inv_id: itemData[0].inv_id,
+    inv_make: itemData[0].inv_make,
+    inv_model: itemData[0].inv_model,
+    inv_year: itemData[0].inv_year,
+    inv_price: itemData[0].inv_price,
   })
 }
 
@@ -240,6 +261,43 @@ invCont.updateInventory = async function (req, res, next) {
     inv_miles,
     inv_color,
     classification_id
+    })
+  }
+}
+
+/* ***************************
+ *  Delete Inventory Data
+ * ************************** */
+invCont.deleteInventory = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  const {
+    inv_id,
+    inv_make,
+    inv_model,
+    inv_price,
+  } = req.body
+  const itemName = inv_make + " " + inv_model
+  const updateResult = await invModel.deleteInventory(
+    inv_id,
+    inv_make,
+    inv_model,
+    inv_price,
+  )
+
+  if (updateResult) {
+    req.flash("notice", `The ${itemName} was successfully deleted.`)
+    res.redirect("/inv/")
+  } else {
+    const itemName = `${inv_make} ${inv_model}`
+    req.flash("notice", "Sorry, the deletion failed.")
+    res.status(501).render("inventory/delete-inventory", {
+    title: "Delete " + itemName,
+    nav,
+    errors: null,
+    inv_id,
+    inv_make,
+    inv_model,
+    inv_price,
     })
   }
 }
