@@ -1,0 +1,52 @@
+<%# The content heading defining title and h1 %>
+<% if (title) { %>
+<h1><%- title %></h1>
+<% } else {
+    res.redirect('/')
+} %>
+    
+<%# The message block commented out for now as usage is not garunteed %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { %>
+            <li><%= error.msg %></li>
+        <%  }) %>
+    </ul>
+<% } %>
+
+<%# The inventory item display makes use of grid to display items by price %>
+
+<div class="forum-container">
+    <h2>Update your account information</h2>
+    <form id="forum" class="updateForm" action="/account/update-account" method="POST">
+    <label for="account_email">Your Email</label><br>
+    <input type="text" id="account_email" name="account_email" required value="<%= locals.account_email %>"><br>
+    <label for="account_firstname">First Name</label><br>
+    <input type="text" id="account_firstname" name="account_firstname" required value="<%= locals.account_firstname %>"><br>
+    <label for="account_lastname">Last name</label><br>
+    <input type="text" id="account_lastname" name="account_lastname" required value="<%= locals.account_lastname %>"><br>
+    <input type="submit" name="login-button" value="Update Account" >
+    <input type="hidden" name="account_id"
+    <% if(locals.account_id) { %> value="<%= locals.account_id %>"
+    <% } %>>
+    </form>
+</div>
+
+<div class="forum-container">
+    <h3>Update your account password</h3>
+    <form id="forum" class="updateForm" action="/account/update-password" method="POST">
+    <label for="account_password">New Password</label><br>
+    <input type="password" id="account_password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"><br>
+    <input type="submit" name="login-button" value="Update Password" >
+    <input type="hidden" name="account_id"
+    <% if(locals.account_id) { %> value="<%= locals.account_id %>"
+    <% } %>>
+    </form>
+</div>
+
+<noscript>JavaScript must be enabled to use this page.</noscript>
+
+<script src="../../js/inv-update.js"></script>

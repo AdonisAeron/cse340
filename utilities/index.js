@@ -111,13 +111,6 @@ Util.getOptions = async function (classification_id = null) {
 };    
 
 /* ****************************************
- * Middleware For Handling Errors  
- * Wrap other function in this for 
- * General Error Handling
- **************************************** */
-Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
-
-/* ****************************************
 * Middleware to check token validity
 **************************************** */
 Util.checkJWTToken = (req, res, next) => {
@@ -151,5 +144,24 @@ Util.checkLogin = (req, res, next) => {
     return res.redirect("/account/login")
   }
 }
+
+/* ****************************************
+* Middleware to check user access and deliver a view if apporpriate
+**************************************** */
+Util.getAdditional = async function (account_type) {
+  let section = ""
+  if (account_type === "Admin" || account_type === "Employee") {
+    section += "<h3>Inventory Management</h3>";
+    section += `<a href="../inv" title="Manage Inventory Items">Manage inventory items and categories</a>`;
+  }
+  return section
+}
+
+/* ****************************************
+ * Middleware For Handling Errors  
+ * Wrap other function in this for 
+ * General Error Handling
+ **************************************** */
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
 module.exports = Util
